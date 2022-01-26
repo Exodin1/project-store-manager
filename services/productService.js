@@ -63,8 +63,25 @@ const getAll = async () => {
   return products;
 };
 
+const update = async (id, name, quantity) => {
+  const nameValidation = await validatename(name);
+  const quantityValidation = await validateQuantity(quantity);
+  if (nameValidation) {
+    return nameValidation;
+  }
+  if (quantityValidation) {
+    return quantityValidation;
+  }
+  const result = await productModel.update(id, name, quantity);
+  if (result) {
+    return { id, name, quantity };
+  }
+  return { status: 404, message: 'Product not found' };
+};
+
 module.exports = {
   finalValidation,
   getById,
   getAll,
+  update,
 };

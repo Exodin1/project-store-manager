@@ -29,9 +29,20 @@ async function getById(id) {
   return result;
 }
 
+const update = async (id, name, quantity) => {
+  if (!id || !name || !quantity) return false;
+  const [result] = await connection.execute(
+    'UPDATE products SET name = ?, quantity = ? WHERE id = ?',
+    [name, quantity, id],
+  );
+  if (result.affectedRows === 0) return false;
+  return true;
+};
+
 module.exports = {
   create,
   getAll,
   getByName,
   getById,
+  update,
 };
