@@ -50,6 +50,21 @@ const finalValidation = async (name, quantity) => {
   return { status: 201, message: { id, name, quantity } };
 };
 
+const getById = async (id) => {
+  const product = await productModel.getById(id);
+  if (product.length === 0) {
+    return false;
+  }
+  return product;
+};
+
+const getAll = async () => {
+  const products = await productModel.getAll();
+  return products;
+};
+
 module.exports = {
   finalValidation,
+  getById,
+  getAll,
 };

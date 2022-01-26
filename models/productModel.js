@@ -8,10 +8,10 @@ const create = async (name, quantity) => {
   return { id: result.insertId };
 };
 
-// const getAll = async () => {
-//   const [rows] = await connection.execute('SELECT * FROM products');
-//   return rows;
-// };
+const getAll = async () => {
+  const [rows] = await connection.execute('SELECT * FROM products');
+  return rows;
+};
 
 async function getByName(name) {
   if (!name) return false;
@@ -23,8 +23,15 @@ async function getByName(name) {
   }
 }
 
+async function getById(id) {
+  if (!id) return false;
+  const [result] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
+  return result;
+}
+
 module.exports = {
   create,
-  // getAll,
+  getAll,
   getByName,
+  getById,
 };
