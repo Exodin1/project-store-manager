@@ -79,9 +79,19 @@ const update = async (id, name, quantity) => {
   return { status: 404, message: 'Product not found' };
 };
 
+const $delete = async (id) => {
+  const result = await productModel.getById(id);
+  if (result.length === 0) {
+    return false;
+  }
+  await productModel.$delete(id);
+  return result;
+};
+
 module.exports = {
   finalValidation,
   getById,
   getAll,
   update,
+  $delete,
 };

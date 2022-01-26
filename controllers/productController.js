@@ -36,4 +36,15 @@ router.put('/products/:id', async (request, response) => {
   return response.status(200).send(productUpdated);
 });
 
+router.delete('/products/:id', async (request, response) => {
+  const { id } = request.params;
+  const product = await productService.$delete(id);
+  if (product) {
+    return response.status(200).json(product[0]);
+  }
+  return response.status(404).json({ message: 'Product not found' });
+
+  // return productService.$delete(id);
+});
+
 module.exports = router;
