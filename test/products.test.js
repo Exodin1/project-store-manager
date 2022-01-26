@@ -53,9 +53,9 @@ describe("Products", () => {
   function hasMessageField(body) {
     expect(Object.keys(body)).toContain("message");
   }
-  
-  describe("1 - Crie um endpoint para o cadastro de produtos", () => {
-    it("Será validado que o campo name esteja presente no body da requisição", async()=>{
+
+  describe.only("1 - Crie um endpoint para o cadastro de produtos", () => {
+    it("Será validado que o campo name esteja presente no body da requisição", async () => {
       await frisby
         .post(`${url}/products/`, {
           // name: "Olho de Thundera",
@@ -72,7 +72,7 @@ describe("Products", () => {
           );
         });
     })
-    it("Será validado que o campo quantity esteja presente no body da requisição", async()=>{
+    it("Será validado que o campo quantity esteja presente no body da requisição", async () => {
       await frisby
         .post(`${url}/products/`, {
           name: "Olho de Thundera",
@@ -403,7 +403,7 @@ describe("Products", () => {
 
     it("Será validado que não é possível atualizar um produto que não existe", async () => {
       await frisby
-        .put(`${url}/products/${INVALID_ID}`,{
+        .put(`${url}/products/${INVALID_ID}`, {
           name: "produto inexistente",
           quantity: 1,
         })
