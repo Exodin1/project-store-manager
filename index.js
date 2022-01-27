@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const productController = require('./controllers/productController');
+const salesController = require('./controllers/salesController');
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.get('/', (_request, response) => {
 });
 
 app.use('/', productController);
+app.use('/', salesController);
 
 const PORT = process.env.PORT || '3000';
 

@@ -35,7 +35,7 @@ describe('Sales', () => {
   });
 
   beforeEach(async () => {
-    const values = products.map(({name, quantity}) => [name, quantity]);
+    const values = products.map(({ name, quantity }) => [name, quantity]);
     await connection.query(
       'INSERT INTO StoreManager.products (name, quantity) VALUES ?',
       [values],
@@ -64,7 +64,7 @@ describe('Sales', () => {
     })
   }
 
-  describe('5 - Crie um endpoint para cadastrar vendas', () => {
+  describe.only('5 - Crie um endpoint para cadastrar vendas', () => {
     it('Será validado que não é possível cadastrar compras sem o campo `product_id`', async () => {
       let result;
       let resultProductId;
@@ -314,7 +314,7 @@ describe('Sales', () => {
           resultFirstSaleId = resultFirstSale.id;
         });
 
-        await frisby
+      await frisby
         .post(`${url}/sales/`, [
           {
             product_id: firstProductId,
@@ -395,7 +395,7 @@ describe('Sales', () => {
           const productIdFirstProduct = responseAll[0].product_id;
           const productIdSecondProduct = responseAll[1].product_id;
           expect(responseAll.length).toBe(2);
-         
+
           expect(productIdFirstProduct).toBe(firstProductId);
           expect(productIdSecondProduct).toBe(secondProductId);
           expect(responseAll[0]).not.toHaveProperty("saleId");
@@ -703,7 +703,7 @@ describe('Sales', () => {
           expect(quantityProductSales).toBe(5);
         });
 
-        await frisby
+      await frisby
         .get(`${url}/sales/${resultSalesId}`)
         .expect('status', 200)
         .then((responseEdited) => {
@@ -714,8 +714,8 @@ describe('Sales', () => {
           expect(idProductSales).toBe(resultSales.itemsSold[0].product_id);
           expect(quantityProductSales).toBe(5);
         });
-        
-        
+
+
     });
   });
 

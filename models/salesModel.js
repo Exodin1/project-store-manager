@@ -1,21 +1,26 @@
 const connection = require('./connection');
 
-async function createSalesProducts(product) {
+async function createSalesProducts(saleid, productid, quantity) {
+  if (!saleid || !productid || !quantity) return false;
   const [result] = await connection.execute(
     'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES ?',
-    [product],
+    [saleid, productid, quantity],
   );
   return result;
 }
 
 async function createSale(products) {
-  const [result] = await connection.execute(
-    'INSERT INTO sales (id) VALUES (DEFAULT)',
+  if (!products) return false;
+  const [{ insertId: id }] = await connection.query(
+    `INSERT INTO sales (id, date)
+     VALUES (DEFAULT, DEFAULT);`,
   );
-  const saleId = result.insertId;
-  const salesProducts = products.map((product) => [saleId, product.id, product.quantity]);
-  await createSalesProducts(salesProducts);
-  return saleId;
+
+  await createSalesProducts(products.map(
+    ({ product_id: productID, quantity }) => [id, productID, quantity],
+  ));
+
+  return { id };
 }
 
 module.exports = {
