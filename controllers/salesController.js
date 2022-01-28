@@ -26,4 +26,14 @@ router.get('/sales/:id', async (request, response) => {
   return response.status(200).json(sale);
 });
 
+router.put('/sales/:id', async (request, response) => {
+  const { id } = request.params;
+  const [product] = request.body;
+  const $update = await salesService.update(product, id);
+  if (typeof $update.message === 'string') {
+    return response.status($update.status).json({ message: $update.message });
+  }
+  return response.status(200).json($update);
+});
+
 module.exports = router;

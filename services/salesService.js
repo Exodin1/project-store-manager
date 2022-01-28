@@ -60,8 +60,33 @@ async function getById(id) {
   return sale;
 }
 
+async function validadeUpdate(quantity) {
+  if (!quantity && quantity !== 0) {
+    return { status: 400, message: '"quantity" is required' };
+  }
+  if (quantity < 1 || typeof quantity !== 'number') {
+    return { status: 422, message: '"quantity" must be a number larger than or equal to 1' };
+  }
+  return false;
+}
+
+async function update(product, id) {
+  const { product_id: productId, quantity } = product;
+  const $validadeUpdate = await validadeUpdate(quantity);
+  if ($validadeUpdate) return $validadeUpdate;
+  if (!productId) {
+    return { status: 400, message: '"product_id" is required' };
+  }
+  await salesModel.updateSale(productId, quantity, id);
+  return {
+    saleId: id,
+    itemUpdated: [product],
+  };
+}
+
 module.exports = {
   create,
   getById,
   getAll,
+  update,
 };
