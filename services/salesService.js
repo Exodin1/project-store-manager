@@ -1,9 +1,8 @@
 const salesModel = require('../models/salesModel');
+const productModel = require('../models/productModel');
 
-async function validateProductID(product) {
-  const productId = await product.find((pro) => !pro.product_id);
-
-  if (productId) {
+function validateProductID(product) {
+  if (product.some(({ product_id: id }) => !id)) {
     return { status: 400, message: '"product_id" is required' };
   }
   return false;
@@ -27,26 +26,42 @@ async function validateQuantity2(product) {
   return false;
 }
 
+// funcão ajustada com ajuda do Gabriel Ferreira
 async function create(product) {
-  if (!product) return false;
   const productId = await validateProductID(product);
-
-  if (productId) {
-    return productId;
+  const arrId = await Promise.all(
+    product.map(({ product_id: productID }) => productModel.getById(productID)),
+  );
+  if (arrId.some((id) => id.length === 0 || !id)) {
+    return {
+      status: 400,
+      message: '"product_id" is required',
+    };
   }
+  if (productId) return productId;
   const quantity = await validateQuantity(product);
-  if (quantity) {
-    return quantity;
-  }
+  if (quantity) return quantity;
   const quantity2 = await validateQuantity2(product);
-  if (quantity2) {
-    return quantity2;
-  }
-  const { id } = await salesModel.createSale(product);
-
+  if (quantity2) return quantity2;
+  const id = await salesModel.createSale(product);
   return { id, itemsSold: product };
+}
+
+async function getAll() {
+  const sales = await salesModel.getAllSales();
+  return sales;
+}
+
+async function getById(id) {
+  const sale = await salesModel.getSaleById(id);
+  if (sale.length === 0) {
+    return { status: 404, message: 'Sale not found' };
+  }
+  return sale;
 }
 
 module.exports = {
   create,
+  getById,
+  getAll,
 };
