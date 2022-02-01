@@ -174,7 +174,7 @@ describe('MODEL', () => {
   });
 });
 
-describe('sale"', () => {
+describe('"sale"', () => {
   describe('createSale', () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([1]);
@@ -184,9 +184,9 @@ describe('sale"', () => {
       connection.execute.restore();
     });
 
-    it('Return the "id" of the created sale', async () => {
+    it('retorna o numero da sale', async () => {
       const response = await saleModel.createSale(sale);
-      expect(response).to.be.an('number');
+      expect(response).to.be.a('number');
     });
   });
   describe('getAllSales', () => {

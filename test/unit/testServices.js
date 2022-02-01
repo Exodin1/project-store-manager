@@ -2,10 +2,7 @@ const sinon = require('sinon');
 const expect = require('chai').expect;
 
 const productModel = require("../../models/productModel");
-// const saleModel = require("../../models/saleModel");
-
 const productService = require("../../services/productService");
-// const saleService = require("../../services/saleService");
 
 const product = { name: "test1", quantity: 2 };
 
@@ -56,5 +53,5 @@ describe('SERVICE', () => {
       const response = await productService.update(product.name, product.quantity);
       expect(response.message).to.be.a('string');
     });
-  })
+  });
 });
