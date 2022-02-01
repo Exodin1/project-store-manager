@@ -12,8 +12,6 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-// app.use('/', productController);
-// app.use('/', salesController);
 app.get('/products', productController.getAll3);
 app.post('/products', productController.createProduct);
 app.get('/products/:id', productController.getById3);

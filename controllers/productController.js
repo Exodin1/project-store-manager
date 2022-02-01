@@ -1,6 +1,5 @@
 const productService = require('../services/productService');
 
-// /products post
 async function createProduct(request, response) {
   const { name, quantity } = request.body;
   const validation = await productService.finalValidation(name, quantity);
@@ -10,7 +9,6 @@ async function createProduct(request, response) {
   return response.status(validation.status).json(validation.message);
 }
 
-// /products/:id get
 async function getById3(request, response) {
   const { id } = request.params;
   const product = await productService.getById(id);
@@ -19,12 +17,12 @@ async function getById3(request, response) {
   }
   return response.status(200).json(product[0]);
 }
-// /products get
+
 async function getAll3(_request, response) {
   const allProducts = await productService.getAll();
   return response.status(200).json(allProducts);
 }
-// /products/:id put
+
 async function updateProduct(request, response) {
   const { id } = request.params;
   const { name, quantity } = request.body;
@@ -34,7 +32,7 @@ async function updateProduct(request, response) {
   }
   return response.status(200).send(productUpdated);
 }
-// /products/:id delete
+
 async function deleteProduct(request, response) {
   const { id } = request.params;
   const product = await productService.$delete(id);

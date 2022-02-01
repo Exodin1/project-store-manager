@@ -1,6 +1,5 @@
 const salesService = require('../services/salesService');
 
-// /sales post
 async function createSale(request, response) {
   const product = request.body;
   const validation = await salesService.create(product);
@@ -10,13 +9,11 @@ async function createSale(request, response) {
   return response.status(201).json(validation);
 }
 
-// sales get
 async function getAll2(_request, response) {
   const getall = await salesService.getAll();
   return response.status(200).json(getall);
 }
 
-// /sales/:id get
 async function getById2(request, response) {
   const { id } = request.params;
   const sale = await salesService.getById(id);
@@ -26,7 +23,6 @@ async function getById2(request, response) {
   return response.status(200).json(sale);
 }
 
-// /sales/:id put
 async function updateSale(request, response) {
   const { id } = request.params;
   const [product] = request.body;
