@@ -12,8 +12,17 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use('/', productController);
-app.use('/', salesController);
+// app.use('/', productController);
+// app.use('/', salesController);
+app.get('/products', productController.getAll3);
+app.post('/products', productController.createProduct);
+app.get('/products/:id', productController.getById3);
+app.put('/products/:id', productController.updateProduct);
+app.delete('/products/:id', productController.deleteProduct);
+app.get('/sales', salesController.getAll2);
+app.post('/sales', salesController.createSale);
+app.get('/sales/:id', salesController.getById2);
+app.put('/sales/:id', salesController.updateSale);
 
 const PORT = process.env.PORT || '3000';
 

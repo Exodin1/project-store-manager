@@ -1,32 +1,31 @@
-const express = require('express');
-
-const router = express.Router();
 const productService = require('../services/productService');
 
-router.post('/products', async (request, response) => {
+// /products post
+async function createProduct(request, response) {
   const { name, quantity } = request.body;
   const validation = await productService.finalValidation(name, quantity);
   if (typeof validation.message === 'string') {
     return response.status(validation.status).json({ message: validation.message });
   }
   return response.status(validation.status).json(validation.message);
-});
+}
 
-router.get('/products/:id', async (request, response) => {
+// /products/:id get
+async function getById3(request, response) {
   const { id } = request.params;
   const product = await productService.getById(id);
   if (!product) {
     return response.status(404).json({ message: 'Product not found' });
   }
   return response.status(200).json(product[0]);
-});
-
-router.get('/products', async (_request, response) => {
+}
+// /products get
+async function getAll3(_request, response) {
   const allProducts = await productService.getAll();
   return response.status(200).json(allProducts);
-});
-
-router.put('/products/:id', async (request, response) => {
+}
+// /products/:id put
+async function updateProduct(request, response) {
   const { id } = request.params;
   const { name, quantity } = request.body;
   const productUpdated = await productService.update(id, name, quantity);
@@ -34,9 +33,9 @@ router.put('/products/:id', async (request, response) => {
     return response.status(productUpdated.status).json({ message: productUpdated.message });
   }
   return response.status(200).send(productUpdated);
-});
-
-router.delete('/products/:id', async (request, response) => {
+}
+// /products/:id delete
+async function deleteProduct(request, response) {
   const { id } = request.params;
   const product = await productService.$delete(id);
   if (product) {
@@ -45,6 +44,12 @@ router.delete('/products/:id', async (request, response) => {
   return response.status(404).json({ message: 'Product not found' });
 
   // return productService.$delete(id);
-});
+}
 
-module.exports = router;
+module.exports = {
+  createProduct,
+  getAll3,
+  getById3,
+  updateProduct,
+  deleteProduct,
+};
