@@ -74,14 +74,14 @@ describe('MODEL', () => {
         connection.execute.restore();
       });
 
-      it('retorna um objeto', async () => {
+      it('retorna false', async () => {
         const response = await productModel.getByName(mock.name);
-        expect(response).to.be.an('object');
+        expect(response).to.be.false
       });
 
-      it('retorna o nome correto', async () => {
+      it('retorna undefined', async () => {
         const response = await productModel.getByName(mock.name);
-        expect(response.name).to.be.equal(mock[0].name);
+        expect(response.name).to.be.undefined;
       });
     });
 
@@ -114,16 +114,20 @@ describe('MODEL', () => {
         connection.execute.restore();
       });
 
-      it('retorna um objeto', async () => {
+      it('retorna false', async () => {
         const response = await productModel.getById(mock.id);
-        expect(response).to.be.an('object');
+        expect(response).to.be.false
 
       });
 
-      it('retorna o id correto', async () => {
+      it('retorna undefined', async () => {
         const response = await productModel.getById(mock.id);
-        expect(response.id).to.be.equal(1);
+        expect(response.id).to.be.undefined;
       });
+      it('retorna false quando sem parametros', async () => {
+        const response = await productModel.getById();
+        expect(response).to.be.false
+      })
     });
 
     describe('update', () => {
@@ -147,7 +151,7 @@ describe('MODEL', () => {
       });
     });
 
-    describe('deleteProduct', () => {
+    describe('delete', () => {
       before(async () => {
         sinon.stub(connection, 'execute').resolves(mock);
       });
@@ -223,9 +227,8 @@ describe('sale"', () => {
     });
 
     it('faz o update da sale', async () => {
-      const response = await saleModel.updateSale(1, sale);
-      console.log(response);
-      expect(response).to.be.an('object');
+      const response = await saleModel.updateSale(sale.product_id, sale.quantity, 1);
+      expect(response).to.be.an('array');
     });
   })
 });

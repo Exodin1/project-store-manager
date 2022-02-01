@@ -15,12 +15,8 @@ const getAll = async () => {
 
 async function getByName(name) {
   if (!name) return false;
-  try {
-    const [result] = await connection.execute('SELECT * FROM products WHERE name = ?', [name]);
-    return result;
-  } catch (err) {
-    return err;
-  }
+  const [result] = await connection.execute('SELECT * FROM products WHERE name = ?', [name]);
+  return result;
 }
 
 async function getById(id) {
@@ -40,8 +36,8 @@ const update = async (id, name, quantity) => {
 };
 
 const $delete = async (id) => {
-  const query = 'DELETE FROM StoreManager.products WHERE id = ?';
-  await connection.execute(query, [id]);
+  const [result] = await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+  return result;
 };
 
 module.exports = {
