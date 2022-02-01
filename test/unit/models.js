@@ -203,6 +203,7 @@ describe('"sale"', () => {
       expect(response).to.be.an('array');
     });
   });
+
   describe('getSaleById', () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([mockSales]);
@@ -217,6 +218,7 @@ describe('"sale"', () => {
       expect(response).to.be.an('array');
     });
   });
+
   describe('updateSale', () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([1]);
@@ -232,5 +234,3 @@ describe('"sale"', () => {
     });
   })
 });
-
-
