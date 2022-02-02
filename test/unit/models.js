@@ -175,21 +175,6 @@ describe('MODEL', async () => {
 });
 
 describe('"sale"', async () => {
-  describe('createSale', async () => {
-    before(async () => {
-      sinon.stub(connection, "execute").resolves([1]);
-    });
-
-    after(async () => {
-      connection.execute.restore();
-    });
-
-    it('retorna o numero da sale', async () => {
-      const response = await saleModel.createSale(sale);
-      console.log(response);
-      expect(response).to.be.a('number');
-    });
-  });
   describe('getAllSales', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([mockSales]);
