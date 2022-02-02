@@ -9,8 +9,8 @@ const product = { name: "test1", quantity: 2 };
 
 const TEST_ID = 1;
 
-describe('SERVICE', () => {
-  describe('finalvalidation', () => {
+describe('SERVICE', async () => {
+  describe('finalvalidation', async () => {
     before(async () => {
       const create = { id: TEST_ID };
       sinon.stub(productModel, "getByName").resolves([]);
@@ -32,7 +32,7 @@ describe('SERVICE', () => {
       expect(response.message).to.be.eql({ id: TEST_ID, ...product });
     });
   });
-  describe('update', () => {
+  describe('update', async () => {
     before(async () => {
       const update = { id: TEST_ID };
       sinon.stub(productModel, "getByName").resolves([]);

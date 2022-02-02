@@ -44,9 +44,9 @@ const mockSales = [
   },
 ];
 
-describe('MODEL', () => {
-  describe('"product"', () => {
-    describe('"create"', () => {
+describe('MODEL', async () => {
+  describe('"product"', async () => {
+    describe('"create"', async () => {
       before(async () => {
         sinon.stub(connection, "execute").resolves(mock);
       });
@@ -65,7 +65,7 @@ describe('MODEL', () => {
       });
     });
 
-    describe('"getByName"', () => {
+    describe('"getByName"', async () => {
       before(async () => {
         sinon.stub(connection, "execute").resolves(mock);
       });
@@ -85,7 +85,7 @@ describe('MODEL', () => {
       });
     });
 
-    describe('"getAll"', () => {
+    describe('"getAll"', async () => {
       before(async () => {
         sinon.stub(connection, "execute").resolves([mockList]);
       });
@@ -105,7 +105,7 @@ describe('MODEL', () => {
       });
     });
 
-    describe('"getById"', () => {
+    describe('"getById"', async () => {
       before(async () => {
         sinon.stub(connection, 'execute').resolves(mock);
       });
@@ -130,7 +130,7 @@ describe('MODEL', () => {
       })
     });
 
-    describe('update', () => {
+    describe('update', async () => {
       before(async () => {
         sinon.stub(connection, 'execute').resolves(mock);
       });
@@ -151,7 +151,7 @@ describe('MODEL', () => {
       });
     });
 
-    describe('delete', () => {
+    describe('delete', async () => {
       before(async () => {
         sinon.stub(connection, 'execute').resolves(mock);
       });
@@ -174,8 +174,8 @@ describe('MODEL', () => {
   });
 });
 
-describe('"sale"', () => {
-  describe('createSale', () => {
+describe('"sale"', async () => {
+  describe('createSale', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([1]);
     });
@@ -189,7 +189,7 @@ describe('"sale"', () => {
       expect(response).to.be.a('number');
     });
   });
-  describe('getAllSales', () => {
+  describe('getAllSales', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([mockSales]);
     });
@@ -204,7 +204,7 @@ describe('"sale"', () => {
     });
   });
 
-  describe('getSaleById', () => {
+  describe('getSaleById', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([mockSales]);
     });
@@ -219,7 +219,7 @@ describe('"sale"', () => {
     });
   });
 
-  describe('updateSale', () => {
+  describe('updateSale', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([1]);
     });
