@@ -10,7 +10,7 @@ async function createSalesProducts({ quantity, productId, id }) {
 
 // funcão ajustada com ajuda do Gabriel Ferreira
 async function createSale(products) {
-  const [{ insertId: id }] = await connection.query(
+  const [{ insertId: id }] = await connection.execute(
     `INSERT INTO sales (id, date)
      VALUES (DEFAULT, DEFAULT)`,
   );
@@ -32,7 +32,7 @@ async function getAllSales() {
 }
 
 async function getSaleById(id) {
-  const [sale] = await connection.query(
+  const [sale] = await connection.execute(
     `
     SELECT s.date, sp.product_id, sp.quantity
     FROM sales AS s
@@ -45,7 +45,7 @@ async function getSaleById(id) {
 }
 
 async function updateSale(productId, quantity, id) {
-  const result = await connection.query(`
+  const result = await connection.execute(`
   update sales_products
   set quantity = ? where product_id = ? and sale_id = ?`, [quantity, productId, id]);
   return result;

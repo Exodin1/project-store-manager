@@ -186,6 +186,7 @@ describe('"sale"', async () => {
 
     it('retorna o numero da sale', async () => {
       const response = await saleModel.createSale(sale);
+      console.log(response);
       expect(response).to.be.a('number');
     });
   });
