@@ -175,6 +175,21 @@ describe('MODEL', async () => {
 });
 
 describe('"sale"', async () => {
+  describe('createSale', async () => {
+    before(async () => {
+      sinon.stub(connection, "execute").resolves([1]);
+    });
+
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('retorna undefined', async () => {
+      const response = await saleModel.createSale(sale);
+      console.log(response);
+      expect(response).to.be.undefined
+    });
+  });
   describe('getAllSales', async () => {
     before(async () => {
       sinon.stub(connection, "execute").resolves([mockSales]);
